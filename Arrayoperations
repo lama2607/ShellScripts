@@ -1,0 +1,59 @@
+#!/bin/bash
+# Shell script to perform array operations using switch case.
+declare -a arr
+arr=(1 33 21 56 7 88 91)
+declare -a arr1
+arr1=(12 44 99 61)
+echo "What do you want to do? (1 to 11)"
+echo "1) Print all values of an array"
+echo "2) Print specific values of an array"
+echo "3) Print a range values"
+echo "4) Get the size of an array"
+echo "5) Search and replace value"
+echo "6) Add new value to existing array"
+echo "7) Remove a value of an array"
+echo "8) Deleting an array"
+echo "9) Copy an array"
+echo "10) Combining arrays"
+echo "11) Load Content of a File into an array"
+echo "Enter your Choice"
+read n
+case "$n" in
+1) echo  "The Values of the Array are:" ${arr[@]};;
+2) echo "Which Value would you like to print (0-5):"
+read z
+ echo "Array[$z]: "${arr[$z]};;
+3) echo "What range of values would you like to print (0-5)"
+read r r1
+echo ${arr[@]:$r:$r1} ;;
+4) echo "The size of the Array is " ${#arr[*]};;
+5) echo "What value of the Array would you like to replace: (0-5)"
+echo ${arr[@]}
+read x
+echo "What is the new value of element $x of the Array:"
+read n
+arr[$x]="$n"
+echo "Updated Array: " ${arr[@]} ;;
+6) echo "What new value would you like to add to the Array:"
+read n2;
+arr+=($n2)
+echo ${arr[@]};;
+7) echo "What value of the Array would you like to delete: (0-5)"
+echo ${arr[@]}
+read x
+unset arr[$x]
+echo "Updated Array: " ${arr[@]} ;;
+8) unset arr
+ echo "Array was deleted.";;
+9) declare -a arr2
+arr2=(${arr[*]})
+echo "Array 2= " ${arr2[@]};;
+10) echo "First Array: " ${arr[@]}
+echo "Second Array: " ${arr1[@]}
+arrc=("${arr[@]}" "${arr1[@]}")
+echo "The combined Array: "${arrc[@]};;
+11) echo "Enter the file name: "
+read p
+readarray -t a < $p
+echo ${a[@]};;
+esac
